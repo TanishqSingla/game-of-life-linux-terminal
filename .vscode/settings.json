@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "cstdarg": "cpp",
+        "cstdio": "cpp",
+        "cwchar": "cpp",
+        "cstdint": "cpp"
+    }
+}
