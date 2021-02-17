@@ -1,3 +1,6 @@
+#pragma once
+#include <ncurses.h>
+
 #define ALIVE 1
 #define DEAD 0
 
@@ -15,19 +18,21 @@ private:
     {
         int count = 0;
 
-        int north = x == 0 ? row - 1 : x - 1;
-        int south = x == row - 1 ? 0 : x + 1;
-        int west = y == 0 ? col - 1 : y - 1;
-        int east = x == col - 1 ? 0 : y + 1;
+        int north = y == 0 ? row - 1 : y - 1;
+        int south = y == row - 1 ? 0 : y + 1;
+        int west = x == 0 ? col - 1 : x - 1;
+        int east = x == col - 1 ? 0 : x + 1;
 
         count += cells[north][west];
-        count += cells[north][j];
+        count += cells[north][x];
         count += cells[north][east];
-        count += cells[i][west];
-        count += cells[i][east];
+        count += cells[y][west];
+        count += cells[y][east];
         count += cells[south][west];
-        count += cells[south][j];
+        count += cells[south][x];
         count += cells[south][east];
+
+        return count;
     }
 
 public:
@@ -40,7 +45,7 @@ public:
         {
             for (int j = 0; j < col; j++)
             {
-                if (is_ok(i + j) || is_ok(i + j))
+                if (is_ok(i + j))
                     cells[i][j] = 1;
                 else
                     cells[i][j] = 0;
@@ -50,12 +55,11 @@ public:
 
     void tick()
     {
-        int count = 0;
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
             {
-                count = 0;
+                int count = neighbour_count(i, j);
 
                 if (cells[i][j] == ALIVE && count < 2)
                     cells[i][j] = DEAD;
@@ -69,16 +73,15 @@ public:
         }
     }
 
-    // void render()
-    // {
-    // 	for (int i = 0; i < row; i++)
-    // 	{
-    // 		std::cout << "\t";
-    // 		for (int j = 0; j < col; j++)
-    // 		{
-    // 			cells[i][j] ? std::cout << "■ " : std::cout << "□ ";
-    // 		}
-    // 		std::cout << std::endl;
-    // 	}
-    // }
+    void render()
+    {
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+                cells[i][j] ? printw("■ ") : printw("□ ");
+            }
+            printw("\n");
+        }
+    }
 };
