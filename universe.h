@@ -1,3 +1,6 @@
+#define ALIVE 1
+#define DEAD 0
+
 class Universe
 {
 private:
@@ -48,6 +51,15 @@ public:
                 count += cells[south][west];
                 count += cells[south][j];
                 count += cells[south][east];
+
+                if (cells[i][j] == ALIVE && count < 2)
+                    cells[i][j] = DEAD;
+                else if (cells[i][j] == ALIVE && (count == 2 || count == 3))
+                    continue;
+                else if (cells[i][j] == ALIVE && count > 3)
+                    cells[i][j] = DEAD;
+                else if (cells[i][j] = DEAD && count == 3)
+                    cells[i][j] = ALIVE;
             }
         }
     }
