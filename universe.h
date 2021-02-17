@@ -11,6 +11,24 @@ private:
     {
         return n % 2 == 0 || n % 7 == 0;
     }
+    int neighbour_count(int y, int x)
+    {
+        int count = 0;
+
+        int north = x == 0 ? row - 1 : x - 1;
+        int south = x == row - 1 ? 0 : x + 1;
+        int west = y == 0 ? col - 1 : y - 1;
+        int east = x == col - 1 ? 0 : y + 1;
+
+        count += cells[north][west];
+        count += cells[north][j];
+        count += cells[north][east];
+        count += cells[i][west];
+        count += cells[i][east];
+        count += cells[south][west];
+        count += cells[south][j];
+        count += cells[south][east];
+    }
 
 public:
     Universe()
@@ -38,19 +56,6 @@ public:
             for (int j = 0; j < col; j++)
             {
                 count = 0;
-                int north = i == 0 ? row - 1 : i - 1;
-                int south = i == row - 1 ? 0 : i + 1;
-                int west = j == 0 ? col - 1 : j - 1;
-                int east = j == col - 1 ? 0 : j + 1;
-
-                count += cells[north][west];
-                count += cells[north][j];
-                count += cells[north][east];
-                count += cells[i][west];
-                count += cells[i][east];
-                count += cells[south][west];
-                count += cells[south][j];
-                count += cells[south][east];
 
                 if (cells[i][j] == ALIVE && count < 2)
                     cells[i][j] = DEAD;
