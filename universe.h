@@ -35,26 +35,19 @@ public:
             for (int j = 0; j < col; j++)
             {
                 count = 0;
-                count += cells[i - 1][j - 1];
-                count += cells[i - 1][j];
-                count += cells[i - 1][j + 1];
-                count += cells[i][j - 1];
-                count += cells[i][j + 1];
-                count += cells[i + 1][j - 1];
-                count += cells[i + 1][j];
-                count += cells[i + 1][j + 1];
+                int north = i == 0 ? row - 1 : i - 1;
+                int south = i == row - 1 ? 0 : i + 1;
+                int west = j == 0 ? col - 1 : j - 1;
+                int east = j == col - 1 ? 0 : j + 1;
 
-                if (count < 0 || count > 8)
-                    count = 0;
-
-                if (cells[i][j] == 1 && count < 2)
-                    cells[i][j] = 0;
-                else if (cells[i][j] == 1 && (count == 2 || count == 3))
-                    cells[i][j] = 1;
-                else if (cells[i][j] == 1 && count > 3)
-                    cells[i][j] = 0;
-                else if (cells[i][j] == 0 && count == 3)
-                    cells[i][j] = 1;
+                count += cells[north][west];
+                count += cells[north][j];
+                count += cells[north][east];
+                count += cells[i][west];
+                count += cells[i][east];
+                count += cells[south][west];
+                count += cells[south][j];
+                count += cells[south][east];
             }
         }
     }

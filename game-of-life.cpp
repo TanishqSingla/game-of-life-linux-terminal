@@ -2,11 +2,6 @@
 #include "universe.h"
 using namespace std;
 
-bool is_ok(int n)
-{
-	return n % 2 == 0 || n % 7 == 0;
-}
-
 int main(int argc, char **argv)
 {
 	initscr();
