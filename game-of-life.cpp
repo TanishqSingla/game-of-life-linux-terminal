@@ -7,16 +7,14 @@ int main(int argc, char **argv)
 	initscr();
 	Universe universe = Universe();
 
-	move(20, 50);
-
-	// universe.render();
-
-	// while (true)
-	// {
-	// 	universe.tick();
-	// 	universe.render();
-	// 	system("clear");
-	// }
+	universe.render();
+	refresh();
+	while (true)
+	{
+		universe.tick();
+		universe.render();
+		refresh();
+	}
 	getch();
 	endwin();
 

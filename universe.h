@@ -79,7 +79,7 @@ public:
         {
             for (int j = 0; j < col; j++)
             {
-                cells[i][j] ? printw("■ ") : printw("□ ");
+                cells[i][j] ? printw("*") : printw(" ");
             }
             printw("\n");
         }
